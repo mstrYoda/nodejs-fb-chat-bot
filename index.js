@@ -3,6 +3,8 @@ var http = require('http');
 var express = require('express');
 var app = express();
 
+app.set('port', (process.env.PORT || 5000));
+
 app.get('/keyword',function(req,res){
   getSuggestion(req,res);
 });
@@ -28,6 +30,6 @@ request('http://suggestqueries.google.com/complete/search?output=client&client=f
     }
 }
 
-app.listen(80, function () {
+app.listen(app.get('port'), function () {
   console.log('Example app listening on port 80!');
 });
