@@ -21,8 +21,7 @@ request('http://suggestqueries.google.com/complete/search?output=client&client=f
           donen[1].forEach(function(entry){
             str += '<li>'+entry+'</li>';
           });
-          res.sendStatus(200);
-          res.send(str);
+          res.status(200).json(body);
         }
       });
 
