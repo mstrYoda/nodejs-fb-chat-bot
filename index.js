@@ -15,7 +15,14 @@ app.get('/keyword',function(req,res){
 });
 
 app.get('/webhook',function(req,res){
-  res.send('webhook');
+  if (req.query['hub.mode'] === 'subscribe' &&
+      req.query['hub.verify_token'] === 'bu_token_cok_gizli') {
+    console.log("Validating webhook");
+    res.status(200).send(req.query['hub.challenge']);
+  } else {
+    console.error("Failed validation. Make sure the validation tokens match.");
+    res.sendStatus(403);          
+  }  
 })
 
 function getSuggestion(req,res){
