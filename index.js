@@ -5,31 +5,38 @@ var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
+
+app.get('/',function(req,res){
+  res.send('hg bro');
+});
+
 app.get('/keyword',function(req,res){
   getSuggestion(req,res);
 });
 
+app.get('/webhook',function(req,res){
+  res.send('webhook');
+})
+
 function getSuggestion(req,res){
-if(req.query.token == 12345){
-
-
-request('http://suggestqueries.google.com/complete/search?output=client&client=firefox&hl=tr-TR&q='+req.query.keyword,
-      function(error,response,body){
-        if(!error && response.statusCode == 200){
-          var donen = JSON.parse(body);
-          var str = ''
-          donen[1].forEach(function(entry){
-            str += '<li>'+entry+'</li>';
+    if(req.query.token == 12345){
+      request('http://suggestqueries.google.com/complete/search?output=client&client=firefox&hl=tr-TR&q='+req.query.keyword,
+          function(error,response,body){
+            if(!error && response.statusCode == 200){
+              var donen = JSON.parse(body);
+              var str = ''
+              donen[1].forEach(function(entry){
+                str += '<li>'+entry+'</li>';
+              });
+              res.status(200).json(body);
+            }
           });
-          res.status(200).json(body);
-        }
-      });
 
     }else{
-      res.send('Bad Request');
+      res.send('Hatalı istek');
     }
 }
 
 app.listen(app.get('port'), function () {
-  console.log('Example app listening on port 80!');
+  console.log('Port dinleniyor...!');
 });
