@@ -1,7 +1,10 @@
 var request = require('request');
 var http = require('http');
+
+var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
+var jsonParser = bodyParser.json();
 
 app.set('port', (process.env.PORT || 5000));
 app.set('jeton','EAAII24KnAZBABAD5oYTZAIoolzWtAvvIDz49QAzgMV5eZBEVRydicvNrVxWHn9lS986W052TSpUVdRToRuZBcLc5MZB9gzr6MO63yVZCZBAXO3BqpiUhgkyuBavrWzDKeZAvNiv35LShCZCupDq77vbW3wKoNbmoJZCoTe5CqP5TnA9gZDZD');
@@ -9,10 +12,6 @@ app.set('jeton','EAAII24KnAZBABAD5oYTZAIoolzWtAvvIDz49QAzgMV5eZBEVRydicvNrVxWHn9
 
 app.get('/',function(req,res){
   res.send('hg bro');
-});
-
-app.get('/keyword',function(req,res){
-  getSuggestion(req,res);
 });
 
 app.get('/webhook',function(req,res){
@@ -26,9 +25,7 @@ app.get('/webhook',function(req,res){
   }  
 });
 
-
-
-app.post('/webhook',function(req,res){
+app.post('/webhook',jsonParser,function(req,res){
 
   var data = req.body;
 
