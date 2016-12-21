@@ -84,6 +84,13 @@ function receivedMessage(event) {
       case 'Forum':
         sendTextMessage(senderID,"http://www.rootdeveloper.org");
         break;
+      case 'Yardım':
+        sendTextMessage(senderID,"Geçerli Komutlar : Yardım, Forum, Programlamaya Başlangıç");
+        break;
+      case 'Programlamaya Başlangıç':
+        sendTextMessage(senderID,"http://rootdeveloper.org/showthread.php?tid=660");
+        break;
+      
 
       default:
         sendTextMessage(senderID, "Yazdığınızı anlayamadım.");
