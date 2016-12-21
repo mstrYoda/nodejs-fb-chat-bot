@@ -88,10 +88,12 @@ function receivedMessage(event) {
         sendTextMessage(senderID,"Geçerli Komutlar : Yardım, Forum, Programlamaya Başlangıç");
         break;
       case 'Programlamaya Başlangıç':
-        sendTextMessage(senderID,"http://rootdeveloper.org/showthread.php?tid=660");
+        sendTextMessage(senderID,"Programlamaya başlangıç ve kitap önerileri için okuyunuz : http://rootdeveloper.org/showthread.php?tid=660");
+        break;
+      case 'Balyoz Dos':
+        sendTextMessage(senderID,"Balyoz Dos şuan için aktif değildir. Biz daha iyisini yapana kadar takipte kalabilirsiniz.");
         break;
       
-
       default:
         sendTextMessage(senderID, "Yazdığınızı anlayamadım.");
     }
