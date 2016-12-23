@@ -1,5 +1,6 @@
 var request = require('request');
 var http = require('http');
+var parseString = require('xml2js').parseString;
 
 var bodyParser = require('body-parser');
 var express = require('express');
@@ -9,6 +10,10 @@ var jsonParser = bodyParser.json();
 app.set('port', (process.env.PORT || 5000));
 app.set('jeton','EAAII24KnAZBABAD5oYTZAIoolzWtAvvIDz49QAzgMV5eZBEVRydicvNrVxWHn9lS986W052TSpUVdRToRuZBcLc5MZB9gzr6MO63yVZCZBAXO3BqpiUhgkyuBavrWzDKeZAvNiv35LShCZCupDq77vbW3wKoNbmoJZCoTe5CqP5TnA9gZDZD');
 
+app.get('/parse',function(req,res){
+  getXml();
+  res.sendStatus(200);
+});
 
 app.get('/',function(req,res){
   res.send('hg bro');
@@ -93,6 +98,14 @@ function receivedMessage(event) {
       case 'Balyoz Dos':
         sendTextMessage(senderID,"Balyoz Dos şuan için aktif değildir. Biz daha iyisini yapana kadar takipte kalabilirsiniz.");
         break;
+      case 'Teşekkürler':
+        sendTextMessage(senderID,"Rica ederim.");
+        break;
+        
+      case 'Konular':
+        sendTextMessage(senderID,"Forumumuzdaki son 15 konuyu listeliyorum...");
+        sendTextMessage(senderID,getXml().join());
+        break;
       
       default:
         sendTextMessage(senderID, "Yazdığınızı anlayamadım.");
@@ -100,6 +113,35 @@ function receivedMessage(event) {
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
+}
+
+function parseXml(xml){
+
+    var dizi = [];
+
+  parseString(xml,function(error,result){
+
+
+    for(feed in result.feed.entry){
+      dizi.append(result.feed.entry[feed].title[0]._ + ' : ' + result.feed.entry[feed].link[0].$.href );
+      console.log(result.feed.entry[feed].title[0]._ + ' link : ' + result.feed.entry[feed].link[0].$.href );
+    }
+    
+  });
+  return dizi;
+}
+
+function getXml(){
+  request({
+      uri: 'http://rootdeveloper.org/syndication.php?fid=&type=atom1.0&limit=15',
+      method: 'GET'
+    }, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        return parseXml(body);
+      } else {
+        console.error("Unable to send message.");
+      }
+  });
 }
 
 function sendTextMessage(recipientId, messageText) {
