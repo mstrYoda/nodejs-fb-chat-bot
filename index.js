@@ -121,11 +121,11 @@ function parseXml(xml,senderId){
   parseString(xml,function(error,result){
     for(feed in result.feed.entry){
       dizi.push(result.feed.entry[feed].title[0]._ + ' : ' + result.feed.entry[feed].link[0].$.href );
-      //console.log(result.feed.entry[feed].title[0]._ + ' link : ' + result.feed.entry[feed].link[0].$.href );
+     //sendTextMessage(senderId,dizi.join());
+      sendTextMessage(senderId,result.feed.entry[feed].title[0]._ + ' : ' + result.feed.entry[feed].link[0].$.href);
     }
   });
 
-   sendTextMessage(senderId,dizi.join());
 }
 
 function getXml(senderId){
