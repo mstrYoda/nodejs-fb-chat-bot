@@ -125,7 +125,7 @@ function parseXml(xml,senderId){
     }
   });
 
-   console.log(dizi.join());
+   sendTextMessage(senderId,dizi.join());
 }
 
 function getXml(senderId){
