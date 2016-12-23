@@ -90,7 +90,7 @@ function receivedMessage(event) {
         sendTextMessage(senderID,"http://www.rootdeveloper.org");
         break;
       case 'Yardım':
-        sendTextMessage(senderID,"Geçerli Komutlar : Yardım, Forum, Programlamaya Başlangıç");
+        sendTextMessage(senderID,"Geçerli Komutlar : Yardım, Forum, Konular, Programlamaya Başlangıç");
         break;
       case 'Programlamaya Başlangıç':
         sendTextMessage(senderID,"Programlamaya başlangıç ve kitap önerileri için okuyunuz : http://rootdeveloper.org/showthread.php?tid=660");
@@ -116,12 +116,8 @@ function receivedMessage(event) {
 
 function parseXml(xml,senderId){
 
-    var dizi = [];
-
   parseString(xml,function(error,result){
     for(feed in result.feed.entry){
-      dizi.push(result.feed.entry[feed].title[0]._ + ' : ' + result.feed.entry[feed].link[0].$.href );
-     //sendTextMessage(senderId,dizi.join());
       sendTextMessage(senderId,result.feed.entry[feed].title[0]._ + ' : ' + result.feed.entry[feed].link[0].$.href);
     }
   });
