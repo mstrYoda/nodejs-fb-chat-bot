@@ -103,7 +103,7 @@ function receivedMessage(event) {
         break;
         
       case 'Konular':
-        sendTextMessage(senderID,getXml());
+        getXml(senderID);
         break;
       
       default:
@@ -114,29 +114,27 @@ function receivedMessage(event) {
   }
 }
 
-function parseXml(xml){
+function parseXml(xml,senderId){
 
     var dizi = [];
 
   parseString(xml,function(error,result){
-
     for(feed in result.feed.entry){
       dizi.push(result.feed.entry[feed].title[0]._ + ' : ' + result.feed.entry[feed].link[0].$.href );
       //console.log(result.feed.entry[feed].title[0]._ + ' link : ' + result.feed.entry[feed].link[0].$.href );
     }
-    
   });
 
-  return dizi.join();
+   console.log(dizi.join());
 }
 
-function getXml(){
+function getXml(senderId){
   request({
       uri: 'http://rootdeveloper.org/syndication.php?fid=&type=atom1.0&limit=15',
       method: 'GET'
     }, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        return parseXml(body);
+        return parseXml(body,senderId);
       } else {
         console.error("Unable connect rootdeveloper.");
       }
