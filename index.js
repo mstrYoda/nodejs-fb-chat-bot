@@ -116,7 +116,7 @@ function receivedMessage(event) {
 
 function parseXml(xml){
 
-    var dizi = [];
+    var dizi = array();
 
   parseString(xml,function(error,result){
 
@@ -138,7 +138,7 @@ function getXml(){
       if (!error && response.statusCode == 200) {
         return parseXml(body);
       } else {
-        console.error("Unable to send message.");
+        console.error("Unable connect rootdeveloper.");
       }
   });
 }
