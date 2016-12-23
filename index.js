@@ -103,7 +103,7 @@ function receivedMessage(event) {
         break;
         
       case 'Konular':
-        sendTextMessage(senderID,getXml().join());
+        sendTextMessage(senderID,getXml());
         break;
       
       default:
@@ -116,13 +116,13 @@ function receivedMessage(event) {
 
 function parseXml(xml){
 
-    var dizi = array();
+    var dizi = {};
 
   parseString(xml,function(error,result){
 
 
     for(feed in result.feed.entry){
-      dizi.append(result.feed.entry[feed].title[0]._ + ' : ' + result.feed.entry[feed].link[0].$.href );
+      dizi.push(result.feed.entry[feed].title[0]._ + ' : ' + result.feed.entry[feed].link[0].$.href );
       console.log(result.feed.entry[feed].title[0]._ + ' link : ' + result.feed.entry[feed].link[0].$.href );
     }
     
