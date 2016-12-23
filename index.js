@@ -107,7 +107,7 @@ function receivedMessage(event) {
         break;
       
       default:
-        sendTextMessage(senderID, "Yazdığınızı anlayamadım.");
+        console.log('Geçerli bir komut girilmedi :' +messageText);
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
