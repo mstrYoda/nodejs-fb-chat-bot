@@ -103,7 +103,7 @@ function receivedMessage(event) {
         break;
         
       case 'Konular':
-        sendTextMessage(senderID,getXml());
+        sendTextMessage(senderID,getXml().join());
         break;
       
       default:
