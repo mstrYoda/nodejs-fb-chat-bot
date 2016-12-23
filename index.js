@@ -103,7 +103,6 @@ function receivedMessage(event) {
         break;
         
       case 'Konular':
-        sendTextMessage(senderID,"Forumumuzdaki son 15 konuyu listeliyorum...");
         sendTextMessage(senderID,getXml().join());
         break;
       
