@@ -116,7 +116,7 @@ function receivedMessage(event) {
 
 function parseXml(xml){
 
-    var dizi = {};
+    var dizi = [];
 
   parseString(xml,function(error,result){
 
